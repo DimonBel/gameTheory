@@ -4,8 +4,10 @@ def strategy_round_2(opponent_id: int, my_history: dict[int, list[int]], opponen
     current_round = len(my_moves)
 
     # Step 1: Determine valid opponent IDs
-    valid_opponents = [oid for oid in opponents_history if len(my_history.get(oid, [])) > 0]
-    next_opponent = opponent_id if opponent_id in valid_opponents else valid_opponents[0] if valid_opponents else opponent_id
+    # Find all available opponents who haven't reached 200 rounds
+    valid_opponents = [oid for oid in opponents_history if len(my_history.get(oid, [])) < 200]
+    next_opponent = opponent_id if opponent_id in valid_opponents else (valid_opponents[0] if valid_opponents else opponent_id)
+
 
     # Step 2: Strategy logic
     if current_round < 2:
@@ -22,4 +24,5 @@ def strategy_round_2(opponent_id: int, my_history: dict[int, list[int]], opponen
     if 0 in recent_opponent_moves:
         return 0, next_opponent
 
-    return opponent_moves[-1], next_opponent
+    return move, next_opponent
+
