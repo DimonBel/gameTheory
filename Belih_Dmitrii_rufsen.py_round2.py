@@ -23,6 +23,6 @@ def strategy_round_2(opponent_id: int, my_history: dict[int, list[int]], opponen
     recent_opponent_moves = opponent_moves[-5:]
     if 0 in recent_opponent_moves:
         return 0, next_opponent
-
+        
+    move = opponent_moves[-1] if opponent_moves else 1
     return move, next_opponent
-
